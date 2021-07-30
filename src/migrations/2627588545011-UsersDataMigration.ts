@@ -2,7 +2,7 @@ import { Role } from "src/users/entities/role.enum";
 import { User } from "src/users/entities/user.entity";
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class UsersDataMigration1627588545011 implements MigrationInterface {
+export class UsersDataMigration2627588545011 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.manager.createQueryBuilder().insert()

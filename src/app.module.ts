@@ -5,15 +5,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import * as ormconfig from './ormconfig';
 import { UsersModule } from './users/users.module';
 
+const ENV = process.env.NODE_ENV || "development";
+
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: 'development.env',
-  }), TypeOrmModule.forRoot({
-    autoLoadEntities: true,
-  }), UsersModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRoot(ormconfig),
+    UsersModule,
+    AuthModule
+  ],
   controllers: [AppController, AuthController],
   providers: [AppService],
 })
