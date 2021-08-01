@@ -7,6 +7,8 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import * as ormconfig from './ormconfig';
 import { UsersModule } from './users/users.module';
+import { ProjectsModule } from './projects/projects.module';
+import { ProjectsController } from './projects/projects.controller';
 
 const ENV = process.env.NODE_ENV || "development";
 
@@ -15,11 +17,13 @@ const ENV = process.env.NODE_ENV || "development";
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot(ormconfig),
+    TypeOrmModule.forRoot(ormconfig[0]),
+    TypeOrmModule.forRoot(ormconfig[1]),
     UsersModule,
-    AuthModule
+    AuthModule,
+    ProjectsModule
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController, AuthController , ProjectsController],
   providers: [AppService],
 })
 export class AppModule {
