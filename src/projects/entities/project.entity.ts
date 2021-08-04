@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Status } from "./status.enum";
 
 @Entity()
@@ -8,13 +9,22 @@ export class Project {
 
     @Column()
     type: string;
-    
+
     @Column()
     description: string;
 
     @Column({ type: "enum", enum: Status, default: Status.INPROGRESS })
     status: string;
 
-    @Column({ type: "date" })
+    @Column({ type: "timestamptz" })
     createdAt: Date;
+
+    @ManyToOne(() => User, user => user.id)
+    @JoinColumn()
+    client: User;
+
+    @ManyToOne(() => User, user => user.id)
+    @JoinColumn()
+    employee: User;
 }
+

@@ -6,9 +6,9 @@ import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import * as ormconfig from './ormconfig';
-import { UsersModule } from './users/users.module';
-import { ProjectsModule } from './projects/projects.module';
 import { ProjectsController } from './projects/projects.controller';
+import { ProjectsModule } from './projects/projects.module';
+import { UsersModule } from './users/users.module';
 
 const ENV = process.env.NODE_ENV || "development";
 
@@ -21,7 +21,7 @@ const ENV = process.env.NODE_ENV || "development";
     TypeOrmModule.forRoot(ormconfig[1]),
     UsersModule,
     AuthModule,
-    ProjectsModule
+    ProjectsModule,
   ],
   controllers: [AppController, AuthController , ProjectsController],
   providers: [AppService],

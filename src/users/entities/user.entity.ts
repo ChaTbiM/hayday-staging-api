@@ -1,5 +1,5 @@
 import { Project } from "src/projects/entities/project.entity";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import { Role } from "./role.enum";
 
 @Entity()
@@ -19,7 +19,10 @@ export class User {
     @Column({ type: "enum", enum: Role, default: Role.CLIENT })
     role: string;
 
-    @ManyToMany(() => Project)
-    @JoinTable()
+    @OneToMany(() => Project, project => project.client)
     projects: Project[];
+
+    @OneToMany(() => Project, project => project.employee)
+    managedProjects: Project[];
+
 }

@@ -33,9 +33,9 @@ export class AuthService {
   }
 
   async login(user) {
-    const payload = { email: user.email, sub: user.userId, role: user.role };
+    const payload = { email: user.email, sub: user.id, role: user.role };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload , {expiresIn:"30m"}),
       user,
     };
   }

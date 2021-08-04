@@ -1,14 +1,16 @@
-import { Body, Controller, Get } from '@nestjs/common';
-import { LoginDto } from 'src/auth/dto/login.dto';
-import { User } from './entities/user.entity';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @Get()
-  async findOne(@Body() LoginDto: LoginDto): Promise<User> {
-    return this.usersService.findOne(LoginDto.email);
+  @UseGuards(JwtAuthGuard)
+  @Get('project')
+  async getUserProjects(@Req() req) {
+    const userId = req.user.userId;
+    const role = req.user.role;
+    return this.usersService.getUserProjects(userId, role);
   }
 }

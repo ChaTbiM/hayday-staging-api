@@ -1,29 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Project } from './entities/project.entity';
+import { Status } from './entities/status.enum';
 
 @Injectable()
 export class ProjectsService {
-  create(createProjectDto: CreateProjectDto) {
-    // find client email 
-    // find employee email 
-    // create project with client-employee-
-    return 'This action adds a new project';
+  constructor(
+    @InjectRepository(Project)
+    private projectRepository: Repository<Project>,
+  ) {
   }
 
-  findAll() {
-    return `This action returns all projects`;
+  async findAll() {
+    const projects = await this.projectRepository.createQueryBuilder("project")
+      .innerJoinAndSelect("project.client", "user")
+      .andWhere("project.status = :projectStatus", { projectStatus: Status.INPROGRESS })
+      .getMany()
+    return projects;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
-  }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
-  }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
-  }
+
 }
