@@ -1,5 +1,4 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 import { Status } from "./status.enum";
 
 @Entity()
@@ -9,19 +8,13 @@ export class Project {
 
     @Column()
     type: string;
+    
+    @Column()
+    description: string;
 
     @Column({ type: "enum", enum: Status, default: Status.INPROGRESS })
     status: string;
 
     @Column({ type: "date" })
     createdAt: Date;
-
-    @OneToOne(() => User)
-    @JoinColumn()
-    client: User;
-
-    @OneToOne(() => User)
-    @JoinColumn()
-    employee: User;
-
 }

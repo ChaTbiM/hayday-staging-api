@@ -1,15 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Project } from "src/projects/entities/project.entity";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
 import { Role } from "./role.enum";
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn()
     id: number;
 
     @Column()
     email: string;
-    
-    @Column({nullable:true})
+
+    @Column({ nullable: true })
     phone: string;
 
     @Column()
@@ -17,4 +18,8 @@ export class User {
 
     @Column({ type: "enum", enum: Role, default: Role.CLIENT })
     role: string;
+
+    @ManyToMany(() => Project)
+    @JoinTable()
+    projects: Project[];
 }
