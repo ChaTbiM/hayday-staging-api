@@ -9,6 +9,7 @@ import * as ormconfig from './ormconfig';
 import { ProjectsController } from './projects/projects.controller';
 import { ProjectsModule } from './projects/projects.module';
 import { UsersModule } from './users/users.module';
+import { ChatModule } from './chat/chat.module';
 
 const ENV = process.env.NODE_ENV || "development";
 
@@ -22,6 +23,7 @@ const ENV = process.env.NODE_ENV || "development";
     UsersModule,
     AuthModule,
     ProjectsModule,
+    ChatModule,
   ],
   controllers: [AppController, AuthController , ProjectsController],
   providers: [AppService],

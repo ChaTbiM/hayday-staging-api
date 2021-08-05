@@ -10,7 +10,7 @@ const config: ConnectionOptions[] = [{
     url: DATABASE_URL,
     entities: [__dirname + '/**/entities/*.entity{.ts,.js}'],
     // We are using migrations, synchronize should be set to false.
-    synchronize: true,
+    synchronize: false,
     // Run migrations automatically,
     // you can disable this if you prefer running migration manually.
     migrationsRun: AUTO_MIGRATE,
