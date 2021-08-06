@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ChatService } from 'src/chat/chat.service';
+import { Message } from 'src/chat/entities/message.entity';
 import { Project } from 'src/projects/entities/project.entity';
 import { ProjectsService } from 'src/projects/projects.service';
 import { User } from './entities/user.entity';
@@ -7,8 +9,8 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User,Project])],
+  imports: [TypeOrmModule.forFeature([User,Project,Message])],
   controllers: [UsersController],
-  providers: [UsersService, TypeOrmModule , ProjectsService]
+  providers: [UsersService, TypeOrmModule , ProjectsService,ChatService]
 })
 export class UsersModule { }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Message } from 'src/chat/entities/message.entity';
+import { ChatService } from 'src/chat/chat.service';
 import { Repository } from 'typeorm';
 import { Project } from './entities/project.entity';
 import { Status } from './entities/status.enum';
@@ -10,6 +10,7 @@ export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private projectRepository: Repository<Project>,
+    private chatService: ChatService
   ) {
   }
 
@@ -23,9 +24,7 @@ export class ProjectsService {
   }
 
   async getProjectMessages(projectId) {
-
-    const messages = (await this.projectRepository.findOneOrFail({ id: projectId }, { relations: ["messages", "messages.from"] })).messages
-    return messages;
+    return await this.chatService.getProjectMessage(projectId);
   }
 
 

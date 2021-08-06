@@ -3,6 +3,7 @@
         "hayday",
         "ormconfig",
         "prebuild",
-        "typeorm"
+        "typeorm",
+        "websockets"
     ]
 }

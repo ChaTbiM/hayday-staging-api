@@ -1,6 +1,8 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ProjectsService } from './projects.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('project')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) { }

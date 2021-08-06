@@ -1,7 +1,8 @@
 import { UseInterceptors } from '@nestjs/common';
-import { WebSocketGateway, WebSocketServer, SubscribeMessage } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
+import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
+import MessageDto from './dto/message.dto';
 import { SocketInterceptor } from './socket.interceptor';
 
 @WebSocketGateway({ cors: { origin: "*" } })
@@ -18,9 +19,10 @@ export class ChatGateway {
 
   @UseInterceptors(new SocketInterceptor())
   @SubscribeMessage("message")
-  handleMessage(client: Socket, data: string) {
+  async handleMessage(client: Socket, message: MessageDto) {
     const roomId = `room-${client.data.roomId}`
-    client.to(roomId).emit("message", data);
+    client.to(roomId).emit("message", message);
+    await this.chatService.saveMessage(message)
   }
 
 }

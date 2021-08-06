@@ -21,7 +21,11 @@ export class Message {
     @JoinColumn()
     project: Project;
 
-    @Column({ type: "timestamptz", default: new Date() })
+
+    @Column()
+    projectId: number;
+
+    @Column({  type: "timestamp with time zone", default: new Date() })
     createdAt: Date;
 
 
