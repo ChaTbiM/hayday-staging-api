@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 
 @Controller('project')
@@ -10,4 +10,9 @@ export class ProjectsController {
     return this.projectsService.findAll();
   }
 
+  @Get('/:id/messages')
+  getProjectMessages(@Param() params) {
+    const projectId = params.id;
+    return this.projectsService.getProjectMessages(projectId);
+  }
 }

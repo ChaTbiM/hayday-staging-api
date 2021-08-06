@@ -28,7 +28,7 @@ export class Project {
     @JoinColumn()
     employee: User;
 
-    @OneToMany(() => Message, message => message.content)
+    @OneToMany(() => Message, message => message.project)
     messages: Message[];
 }
 

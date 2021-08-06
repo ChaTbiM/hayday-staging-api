@@ -14,6 +14,9 @@ export class Message {
     @JoinColumn()
     from: User;
 
+    @Column()
+    fromId: number;
+
     @ManyToOne(() => Project, project => project.id)
     @JoinColumn()
     project: Project;

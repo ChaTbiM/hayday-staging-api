@@ -20,7 +20,7 @@ export class ChatGateway {
   @SubscribeMessage("message")
   handleMessage(client: Socket, data: string) {
     const roomId = `room-${client.data.roomId}`
-    client.in(roomId).emit("message", data);
+    client.to(roomId).emit("message", data);
   }
 
 }
