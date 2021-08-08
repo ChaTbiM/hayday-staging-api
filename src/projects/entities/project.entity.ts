@@ -1,6 +1,7 @@
 import { Message } from "src/chat/entities/message.entity";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { File } from "./file.entity";
 import { Status } from "./status.enum";
 
 @Entity()
@@ -30,5 +31,9 @@ export class Project {
 
     @OneToMany(() => Message, message => message.project)
     messages: Message[];
+
+    @OneToMany(() => File, file => file.project)
+    files: File[];
+
 }
 
