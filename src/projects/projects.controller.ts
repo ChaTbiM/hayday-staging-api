@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Post, Res, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
@@ -66,5 +66,11 @@ export class ProjectsController {
   getProjectFiles(@Param() params) {
     const projectId = params.id;
     return this.projectsService.getProjectFiles(projectId)
+  }
+
+  @Patch('/:id')
+  updateProjectStatus(@Param() params){
+    const projectId = params.id
+    return this.projectsService.updateProjectStatus(projectId);
   }
 }

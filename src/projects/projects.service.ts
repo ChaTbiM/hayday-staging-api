@@ -49,6 +49,10 @@ export class ProjectsService {
   }
 
 
-
+  async updateProjectStatus(projectId) {
+    let project = await this.projectRepository.findOneOrFail({ id: projectId })
+    project.status = Status.COMPLETED;
+    return await this.projectRepository.save(project);
+  }
 
 }

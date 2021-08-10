@@ -37,7 +37,7 @@ export class UsersService {
         const user = await this.usersRepository.createQueryBuilder("user")
           .innerJoinAndSelect("user.managedProjects", "project")
           .where("user.id = :userId", { userId })
-          .andWhere("project.status = :projectStatus", { projectStatus: Status.INPROGRESS })
+          // .andWhere("project.status = :projectStatus", { projectStatus: Status.INPROGRESS })
           .andWhere("user.role = 'employee'")
           .innerJoinAndSelect("project.client", "user.id")
           .getOne()
